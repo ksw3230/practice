@@ -83,14 +83,15 @@ public class ImageBoardController {
 	}
 	
 	@RequestMapping("insertOK")
-	public String insertOK(ImageBoardDTO dto) {
+	public String insertOK(ImageBoardDTO dto, HttpServletRequest request) {
 		String filename="Noimage.png";
 		UUID uid = UUID.randomUUID();
 		if(!dto.getFile().isEmpty()) {
 			// 첨부파일 이름
 			filename = uid.toString()+"_"+dto.getFile().getOriginalFilename();
 			try {
-				String path="C:\\Users\\Sean\\Desktop\\spring\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\multiBoard\\WEB-INF\\views\\images\\";
+				String path =request.getSession().getServletContext().getRealPath("/") + "WEB-INF\\views\\images\\";
+//				String path="C:\\SeanKookGi\\spring\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\multiBoard\\WEB-INF\\views\\images\\";
 				new File(path).mkdir();
 				dto.getFile().transferTo(new File(path+filename));
 			} catch(Exception e) {
@@ -132,7 +133,8 @@ public class ImageBoardController {
 		if(!dto.getFile().isEmpty()) {
 			filename = uid.toString()+"_"+dto.getFile().getOriginalFilename();
 			try {
-				String path="C:\\Users\\Sean\\Desktop\\spring\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\multiBoard\\WEB-INF\\views\\images\\";
+				String path =request.getSession().getServletContext().getRealPath("/") + "WEB-INF\\views\\images\\";
+//				String path="C:\\SeanKookGi\\spring\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\multiBoard\\WEB-INF\\views\\images\\";
 				new File(path).mkdir();
 				dto.getFile().transferTo(new File(path+filename));
 			} catch(Exception e) {
@@ -160,11 +162,12 @@ public class ImageBoardController {
 	}
 	
 	@RequestMapping("deleteOK")
-	public String deleteOK(int idx, int currentPage, Model model) {
+	public String deleteOK(int idx, int currentPage, Model model, HttpServletRequest request) {
 //		System.out.println("idx~~~~~~~~~ : " + idx + "." + currentPage);
 		String filename = imageboardService.selectOne(idx).getPictureUrl();
 		if(filename != null && !filename.equals("Noimage.png")) {
-			String path="C:\\Users\\Sean\\Desktop\\spring\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\multiBoard\\WEB-INF\\views\\images\\";
+			String path =request.getSession().getServletContext().getRealPath("/") + "WEB-INF\\views\\images\\";
+//			String path="C:\\SeanKookGi\\spring\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\multiBoard\\WEB-INF\\views\\images\\";
 			File file = new File(path+filename);
 			if(file.exists()) { // 파일 존재하면
 				file.delete(); // 파일 삭제
