@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="member">
+	<insert id="join">
+		insert into t_member (userid, passwd, name, email, gender) 
+			values(#{userid}, #{passwd}, #{name}, #{email}, #{gender})
+	</insert>
+	
+	<select id="id_check" resultType="String">
+		select name from t_member where userid = #{userid}
+	</select>
+	
+	<select id="login" resultType="String">
+		select name from t_member where userid=#{userid} and passwd=#{passwd}
+	</select>
+	
+	<select id="getInfo" resultType="kr.ksw3230.multiBoard.model.member.dto.MemberDTO">
+		select * from t_member where userid=#{userid}
+	</select>
+	
+	<update id="update">
+		update t_member set passwd=#{passwd}, name=#{name}, email=#{email}, gender=#{gender} where userid=#{userid}
+	</update>
+	
+	<delete id="deleteMember">
+		delete from t_member where userid =#{userid}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

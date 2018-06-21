@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="greet">
+	<insert id="insert">
+		insert into t_greet(idx, userid, content) values(t_greet_idx_seq.nextval, #{userid}, #{content})
+	</insert>
+	<select id="selectList" resultType="kr.ksw3230.multiBoard.model.greet.dto.GreetDTO">
+		select * from t_greet order by idx desc
+	</select>
+	<delete id="delete">
+		delete from t_greet where idx=#{idx}
+	</delete>
+	<select id="selectLevel" resultType="int">
+		select user_level from t_member where userid=#{userid}
+	</select>
+	<update id="levelUp">
+		update t_member set user_level=#{user_level}+1 where userid=#{userid}
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

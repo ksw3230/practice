@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="board">
+	<insert id="insert">
+		insert into t_board (idx, ref, lev, seq, userid, title, content, ip, notice)
+	values (t_board_idx_seq.nextval, t_board_idx_seq.currval, 0, 0, #{userid}, #{title}, #{content}, #{ip}, #{notice})
+	</insert>
+	<select id="selectCount" resultType="int">
+		select count(*) from t_board
+	</select>
+	<select id="selectList" resultType="kr.ksw3230.multiBoard.model.board.dto.BoardDTO">
+		<![CDATA[
+		select * from (
+			select rownum rnum, G.* from (
+				select * from t_board order by ref desc, seq asc
+			) G where rownum <= #{endNo}
+		) where rnum >= #{startNo}
+	]]>	
+	</select>
+	<update id="increment" parameterType="int">
+		update t_board set hit = hit+1 where idx = #{idx}
+	</update>
+	<select id="selectByIdx" resultType="kr.ksw3230.multiBoard.model.board.dto.BoardDTO">
+		select * from t_board where idx=#{idx}
+	</select>
+	<delete id="delete">
+		delete from t_board where idx=#{idx}
+	</delete>
+	<update id="update">
+		update t_board set title=#{title}, content=#{content}, notice=#{notice} where idx=#{idx}
+	</update>
+	<update id="incrementSeq">
+		<![CDATA[
+		update t_board set seq = seq + 1 where ref = #{ref} and seq >= #{seq}
+		]]>
+	</update>	
+	<insert id="reply">
+		insert into t_board (idx, ref, lev, seq, userid, title, content, ip)
+		values (t_board_idx_seq.nextval, #{ref}, #{lev}, #{seq}, #{userid}, #{title}, #{content}, #{ip})
+	</insert>	
+	<select id="selectNotice" resultType="kr.ksw3230.multiBoard.model.board.dto.BoardDTO">
+		select * from t_board where notice='notice' order by idx desc
+	</select>
+	<select id="selectCountMulti" resultType="int">
+		select count(*) from t_board where
+		<if test='category.equals("아이디")'>
+			userid like '%'||#{item}||'%'
+		</if>	
+		<if test='category.equals("제목")'>
+			title like '%'||#{item}||'%'
+		</if>	
+		<if test='category.equals("아이디+제목")'>
+			userid like '%'||#{item}||'%' or title like '%'||#{item}||'%'
+		</if>
+	</select>
+	
+	<select id="selectListMulti" resultType="kr.ksw3230.multiBoard.model.board.dto.BoardDTO">
+		select * from (
+				select rownum rnum, TT.* from (
+					select * from t_board where 
+						<if test='category.equals("아이디")'>
+							userid like '%'||#{item}||'%' 
+						</if>
+						<if test='category.equals("제목")'>
+							title like '%'||#{item}||'%' 
+						</if>
+						<if test='category.equals("아이디+제목")'>
+							userid like '%'||#{item}||'%' or title like '%'||#{item}||'%'
+						</if>
+				 order by ref desc, seq asc
+		<![CDATA[
+				) TT where rownum <= #{endNo}
+			) where rnum >= #{startNo}
+		]]>
+	</select>
+	<select id="selectLastNotice" resultType="kr.ksw3230.multiBoard.model.board.dto.BoardDTO">
+		select * from (select * from t_board where notice='notice' order by idx desc) where rownum=1
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

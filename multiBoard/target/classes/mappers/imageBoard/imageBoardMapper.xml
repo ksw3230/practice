@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="imageBoard">
+ <insert id="insert">
+ 	insert into t_imageBoard(idx, userid, title, content, pictureUrl) values (t_imageBoard_idx_seq.nextval, #{userid}, #{title}, #{content}, #{pictureUrl})
+ </insert>
+ <select id="selectList" resultType="int">
+ 	select count(*) from t_imageBoard
+ </select>
+ <select id="getList" resultType="kr.ksw3230.multiBoard.model.imageBoard.dto.ImageBoardDTO">
+ 	<![CDATA[
+		select * from (
+			select rownum rnum, G.* from (
+				select * from t_imageBoard order by idx desc
+			) G where rownum <= #{endNo}
+		) where rnum >= #{startNo}
+	]]>	
+ </select>
+ <select id="selectOne" resultType="kr.ksw3230.multiBoard.model.imageBoard.dto.ImageBoardDTO">
+ 	select * from t_imageBoard where idx=#{idx}
+ </select>
+ <update id="updateOK">
+ 	update t_imageBoard set title=#{title}, content=#{content}, pictureUrl=#{pictureUrl} where idx=#{idx}
+ </update>
+ <delete id="deleteOK">
+ 	delete from t_imageBoard where idx=#{idx}
+ </delete>
+ <select id="getLevel" resultType="int">
+		select user_level from t_member where userid=#{userid}
+ </select>
+ <select id="select4List" resultType="kr.ksw3230.multiBoard.model.imageBoard.dto.ImageBoardDTO">
+ 	<![CDATA[
+ 	select * from (
+			select rownum rnum, G.* from (
+				select * from t_imageboard order by idx desc
+			) G where rownum <= 4
+		) where rnum >= 1
+	]]>	
+  </select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
