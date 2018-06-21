@@ -55,7 +55,7 @@
     		<c:set var="title" value="${fn:replace(vo.title, '<', '&lt;')}"/>
 			<c:set var="title" value="${fn:replace(title, '>', '&gt;')}"/>
     		${title}
-    		(${vo.replyCount})
+    		
    
     </td>
    <c:if test="${i%j == j-1}">
