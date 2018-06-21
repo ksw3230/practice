@@ -23,6 +23,7 @@
 	</repositories>
 	<!-- 외부 라이브러리 설정 -->
 	<dependencies>
+		
 		<!-- 이메일 발송 관련 라이브러리 -->
 		<dependency>
 			<groupId>javax.mail</groupId>

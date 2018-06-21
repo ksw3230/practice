@@ -50,6 +50,11 @@ function chk() {
   		로그아웃 되었습니다.
   	</div>
   </c:if>
+  <c:if test="${message == 'nologin'}">
+  	<div style="color:red; width:90%">
+ 		로그인 해주세요!.
+  	</div>
+  </c:if>
 </div>
 </body>
 </html>

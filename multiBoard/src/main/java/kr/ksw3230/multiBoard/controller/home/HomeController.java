@@ -1,4 +1,4 @@
-package kr.ksw3230.multiBoard;
+package kr.ksw3230.multiBoard.controller.home;
 
 import java.text.DateFormat;
 import java.util.Date;
