@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="fboard">
+	
+	<insert id="insert">
+		insert into f_board (idx, title, content, userid)
+		values(f_board_seq.nextval, #{title}, #{content}, #{userid})
+	</insert>
+	
+	<insert id="addAttach">
+		insert into f_attach(fullName, idx) values
+		(#{fullName}, f_board_seq.currval)
+	</insert>
+	
+	<select id="selectCount" resultType="int">
+		select count(*) from f_board
+	</select>
+	
+	<select id="selectList" resultType="kr.ksw3230.fboard.model.dto.FboardDTO">
+		<![CDATA[
+		select * from (
+			select rownum rnum, G.* from (
+				select * from f_board order by idx desc
+			) G where rownum <= #{endNo}
+		) where rnum >= #{startNo}
+	]]>	
+	</select>
+	
+	<update id="increment">
+		update f_board set hit = hit+1 where idx=#{idx}
+	</update>
+	
+	<select id="selectByIdx" resultType="kr.ksw3230.fboard.model.dto.FboardDTO">
+		select * from f_board where idx =#{idx}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
