@@ -101,6 +101,7 @@ $(function(){
 <tr>
 	<td align="right">
 		<button type="button" id="btnSave">확인</button>
+		<input type="button" value="돌아가기" onclick="history.go(-1)"/>
 	</td>
 </tr>
 	

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import kr.ksw3230.multiBoard.model.greet.dto.GreetDTO;
 import kr.ksw3230.multiBoard.model.imageBoard.dto.ImageBoardDTO;
 import kr.ksw3230.multiBoard.model.imageBoard.dto.ImageCommentDTO;
-import kr.ksw3230.multiBoard.model.init.ImageBoardInit;
+import kr.ksw3230.multiBoard.model.init.Pager;
 import kr.ksw3230.multiBoard.service.imageBoard.ImageBoardService;
 import kr.ksw3230.multiBoard.service.imageBoard.ImageCommentService;
 
@@ -51,7 +51,7 @@ public class ImageBoardController {
 				
 				int pageSize = 12;
 				int totalCount = imageboardService.selectList();
-				ImageBoardInit init = ctx.getBean("init",ImageBoardInit.class);
+				Pager init = ctx.getBean("pager",Pager.class);
 				init.init(totalCount, currentPage, pageSize);
 				HashMap<String, Integer> hmap = new HashMap<>();
 				hmap.put("startNo", init.getStartNo());

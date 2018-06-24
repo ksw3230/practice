@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<![CDATA[
 		select * from (
 			select rownum rnum, G.* from (
-				select * from f_board order by idx desc
+				select * from f_board where show='Y' order by idx desc
 			) G where rownum <= #{endNo}
 		) where rnum >= #{startNo}
 	]]>	
@@ -37,6 +37,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectByIdx" resultType="kr.ksw3230.fboard.model.dto.FboardDTO">
 		select * from f_board where idx =#{idx}
 	</select>
+	
+	<select id="getAttach" resultType="String">
+		select fullName from f_attach where idx=#{idx} order by regdate desc
+	</select>
+	
+	<update id="update">
+		update f_board set title=#{title}, content=#{content} where idx=#{idx}
+	</update>
+	
+	<insert id="updateAttach">
+		insert into f_attach(fullName, idx) values(#{fullName},#{idx})
+	</insert>
+	
+	<delete id="deleteFile">
+		delete from f_attach where fullName=#{fullName}
+	</delete>
+	
+	<update id="delete">
+		update f_board set show='N' where idx=#{idx}
+	</update>
 	
 </mapper>
 

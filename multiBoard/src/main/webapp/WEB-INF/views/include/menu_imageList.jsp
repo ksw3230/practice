@@ -8,6 +8,7 @@
   <li><a href="${path}/greet/list">가입인사</a></li>
   <li><a href="${path}/board/list">답변형게시판</a></li>
   <li class="active"><a href="${path}/imageBoard/list">이미지게시판</a></li>
+  <li><a href="${path}/fboard/list">파일게시판</a></li>
   <c:if test="${sessionScope.admin_userid != null}">
   	<li><a href="${path}/admin/manage_member">회원관리</a></li>
   </c:if>

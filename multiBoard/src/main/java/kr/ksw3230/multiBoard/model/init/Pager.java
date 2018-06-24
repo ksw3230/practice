@@ -1,6 +1,6 @@
 package kr.ksw3230.multiBoard.model.init;
 
-public class ImageBoardInit {
+public class Pager {
 
 	private int totalCount;
 	private int totalPage;
@@ -11,7 +11,7 @@ public class ImageBoardInit {
 	private int startPage;
 	private int endPage;
 	
-	public ImageBoardInit() {}
+	public Pager() {}
 	
 	public void init(int totalCount, int currentPage, int pageSize) {
 		this.totalCount = totalCount;

@@ -11,4 +11,8 @@ public interface FboardService {
 	public List<FboardDTO> selectList(HashMap<String, Integer> hmap);
 	public void increment(int idx);
 	public FboardDTO selectByIdx(int idx);
+	public List<String> getAttach(int idx);
+	public void update(FboardDTO dto) throws Exception;
+	public void deleteFile(String fullName);
+	public void delete(int idx);
 }

@@ -4,6 +4,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<bean id="greetParam" class="kr.ksw3230.multiBoard.model.greet.dto.GreetParam"/>
 	<bean id="boardParam" class="kr.ksw3230.multiBoard.model.board.dto.BoardParam"/>
-	<bean id="init" class="kr.ksw3230.multiBoard.model.init.ImageBoardInit"/>
+	<bean id="pager" class="kr.ksw3230.multiBoard.model.init.Pager"/>
 	
 </beans>

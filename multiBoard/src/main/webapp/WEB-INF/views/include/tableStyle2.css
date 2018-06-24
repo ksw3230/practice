@@ -1,0 +1,98 @@
+@charset "UTF-8";
+table {
+    border-collapse: collapse;
+    align-self: center;
+    width: 600px;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+td.right {
+    text-align: right;
+    padding: 8px;
+}
+
+th.center {
+    text-align: center;
+    padding: 8px;
+}
+
+td.center {
+    text-align: center;
+    padding: 8px;
+}
+
+
+th.title {
+	text-align:center;
+    font-size: 15pt;
+	padding: 8px;
+    background-color: #CDC8C8;
+}
+      
+th {
+    background-color: #948A8A;
+    color: white;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+tr.notice {
+	background-color: #B0ABAB;
+}
+
+.select {
+	margin-top: 6px;
+}
+
+
+
+input[type=submit], [type=reset], [type=button] {
+	background-color: #A0A0A0;
+    color: white;
+    padding: 12px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 4px 2px;
+}
+
+
+input[type=submit]:hover, [type=reset]:hover, [type=button]:hover {
+    background-color: #C0C0C0;
+}
+
+input.disabled {
+	background-color: #C0C0C0;
+}
+
+select {
+    width: 100px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+input[type=text] {
+    width: 100px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+input[type=text].content {
+    width: 500px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+a, a:hover {
+		color: #274a82;
+		text-decoration: none;
+}

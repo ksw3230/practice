@@ -48,5 +48,30 @@ public class FboardServiceImpl implements FboardService {
 	public FboardDTO selectByIdx(int idx) {
 		return fboardDao.selectByIdx(idx);
 	}
+
+	@Override
+	public List<String> getAttach(int idx) {
+		return fboardDao.getAttach(idx);
+	}
+	
+	@Transactional
+	@Override
+	public void update(FboardDTO dto) throws Exception{
+		fboardDao.update(dto);
+		String[] files = dto.getFiles();
+		for(String name : files) {
+			fboardDao.updateAttach(name, dto.getIdx());
+		}
+	}
+
+	@Override
+	public void deleteFile(String fullName) {
+		fboardDao.deleteFile(fullName);
+	}
+
+	@Override
+	public void delete(int idx) {
+		fboardDao.delete(idx);
+	}
 	
 }

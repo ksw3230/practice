@@ -13,7 +13,9 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.ksw3230.fboard.model.dto.FboardDTO;
 import kr.ksw3230.fboard.pager.Pager;
@@ -62,6 +64,12 @@ public class FboardController {
 		return "redirect:/fboard/list";
 	}
 	
+	@RequestMapping("getAttach/{idx}")
+	@ResponseBody // view가 아닌 데이터 자체를 리턴
+	public List<String> getAttach(@PathVariable int idx){
+		return fboardService.getAttach(idx);
+	}
+	
 	@RequestMapping("increment")
 	public String increment(HttpServletRequest request, Model model) {
 		int idx = Integer.parseInt(request.getParameter("idx"));
@@ -80,6 +88,23 @@ public class FboardController {
 		model.addAttribute("dto", dto);
 		model.addAttribute("currentPage", Integer.parseInt(request.getParameter("currentPage")));
 		return job;	
+	}
+	
+	@RequestMapping("update")
+	public String update(FboardDTO dto, int currentPage) throws Exception {
+		
+		if(dto != null) {
+			fboardService.update(dto);
+		}
+		return "redirect:/fboard/contentView?idx="+dto.getIdx()+"&job=fboard/view&currentPage="+currentPage;
+	}
+	
+	@RequestMapping("delete")
+	public String delete(HttpServletRequest request, Model model) {
+		int idx = Integer.parseInt(request.getParameter("idx"));
+		fboardService.delete(idx);
+		model.addAttribute("currentPage", Integer.parseInt(request.getParameter("currentPage")));
+		return "redirect:/fboard/list";
 	}
 	
 	

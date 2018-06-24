@@ -5,3 +5,4 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <link rel="stylesheet" href="${path}/include/menuStyle.css">
+<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>

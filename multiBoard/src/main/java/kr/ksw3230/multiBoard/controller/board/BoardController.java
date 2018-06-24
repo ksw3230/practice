@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.ksw3230.multiBoard.model.board.dto.BoardDTO;
 import kr.ksw3230.multiBoard.model.board.dto.BoardParam;
-import kr.ksw3230.multiBoard.model.init.ImageBoardInit;
+import kr.ksw3230.multiBoard.model.init.Pager;
 import kr.ksw3230.multiBoard.service.board.BoardService;
 import kr.ksw3230.multiBoard.service.imageBoard.ImageBoardService;
 
@@ -66,7 +66,7 @@ public class BoardController {
 					}
 				}
 				int totalCount;
-				ImageBoardInit init = ctx.getBean("init",ImageBoardInit.class);
+				Pager init = ctx.getBean("pager",Pager.class);
 				List<BoardDTO> list = null;
 				if(item == null || item.trim().length() == 0) {
 					totalCount = boardService.selectCount();

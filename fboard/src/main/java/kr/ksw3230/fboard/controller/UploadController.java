@@ -1,12 +1,19 @@
 package kr.ksw3230.fboard.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +46,38 @@ public class UploadController {
 		return new ResponseEntity<String>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.OK);
 	}
 	
+	@ResponseBody // view가 아닌 data 리턴
+	@RequestMapping("/fboard/displayFile")
+	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception {
+		InputStream in = null; // java.io
+		ResponseEntity<byte[]> entity = null;
+		try {
+			HttpHeaders headers = new HttpHeaders();
+			in = new FileInputStream(uploadPath + fileName);
+			fileName = fileName.substring(fileName.indexOf("_")+1);
+			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+			headers.add("Content-Disposition", "attachment; filename=\"" + new String(fileName.getBytes("UTF-8"), "iso-8859-1") + "\"");
+			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.OK);	
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+		} finally {
+			if(in != null) {
+				in.close(); // 스트림 닫기
+			}
+				
+		}
+		return entity;
+	}
 	
+	@ResponseBody
+	@RequestMapping(value="/fboard/deleteFile", method=RequestMethod.POST)
+	public ResponseEntity<String> deleteFile(String fileName){
+		logger.info("fileName : " + fileName);
+		new File(uploadPath+fileName.replace('/', File.separatorChar)).delete();
+		fboardService.deleteFile(fileName);
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
+	}
 
 	
 }

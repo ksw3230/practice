@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <%@ include file="../include/header.jsp" %>
+
 </head>
 <body>
 <table align="center" width="500px">
@@ -43,18 +44,14 @@
 </c:choose>
 <tr>
  	<td colspan="3">
-		<c:if test="${init.currentPage > 1}">
-			<input type="button" title="이전 페이지" value="이전" onclick="location.href='${path}/imageBoard/list?currentPage=${init.currentPage - 1}'"/>	
+		<c:if test="${pager.currentPage > 1}">
+			<input type="button" title="이전 페이지" value="이전" onclick="location.href='${path}/imageBoard/list?currentPage=${pager.currentPage - 1}'"/>	
 		</c:if>
-		<c:if test="${init.currentPage <= 1}">
-			<input class="disabled" type="button" value="이전" disabled="disabled">
+	
+		<c:if test="${pager.currentPage < pager.totalPage}">
+				<input type="button" title="다음 페이지" value="다음" onclick="location.href='?currentPage=${pager.currentPage + 1}'"/>	
 		</c:if>
-		<c:if test="${init.currentPage < init.totalPage}">
-				<input type="button" title="다음 페이지" value="다음" onclick="location.href='?currentPage=${init.currentPage + 1}'"/>	
-		</c:if>
-		<c:if test="${init.currentPage >= init.totalPage}">
-			<input class="disabled" type="button" value="다음" disabled="disabled">
-		</c:if>
+		
 	<td align="right" colspan="2">
 		<input type="button" onclick="location.href='${path}/fboard/insert'" value="글쓰기">
 	</td>
