@@ -74,10 +74,10 @@ function listAttach(){
 <tr>
 	<td class="right">
 		<input type="button" value="리스트로" onclick="location.href='${path}/fboard/list?currentPage=${currentPage}'"/>
-		<%-- <c:if test="${sessionScope.userid == dto.userid.trim() || sessionScope.admin_userid != null}"> --%>
+		<c:if test="${sessionScope.userid == dto.userid.trim() || sessionScope.admin_userid != null}">
 		<input type="button" value="수정하기" onclick="location.href='${path}/fboard/contentView?currentPage=${currentPage}&idx=${dto.idx}&job=fboard/update'"/>
 		<button type="button" id="btnDelete">삭제하기</button>
-		<%-- </c:if> --%>
+		</c:if>
 	</td>
 </tr>		
 </table>

@@ -44,4 +44,17 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping("logRedirect")
+	public String loginRedirect(HttpServletRequest request, Model model) {
+				
+		model.addAttribute("message", "로그인해 주세요");
+		model.addAttribute("url", "member/login");
+		return "redirect";
+	}
+	@RequestMapping("levelRedirect")
+	public String levelRedirect(HttpServletRequest request, Model model) {
+		model.addAttribute("message", "가입인사를 해주세요");
+		model.addAttribute("url", " ");
+		return "redirect";
+	}
 }

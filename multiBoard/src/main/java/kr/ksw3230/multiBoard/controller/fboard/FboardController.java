@@ -59,8 +59,8 @@ public class FboardController {
 	
 	@RequestMapping("insertOK")
 	public String insert(FboardDTO dto, HttpSession session) throws Exception{
-//		String writer =(String) session.getAttribute("userid");
-		dto.setUserid("ksw3230");
+		String writer =(String) session.getAttribute("userid");
+		dto.setUserid(writer);
 		fboardService.insert(dto);
 		return "redirect:/fboard/list";
 	}
