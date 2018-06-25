@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>파일게시판-내용보기</title>
 <%@ include file="../include/header.jsp" %>
 <script src="${path}/include/js/common.js"></script>
 <script>
@@ -55,7 +55,7 @@ function listAttach(){
 		<h2>내용보기</h2>
 	</th>
 <tr>	
-	<td>제목 : ${dto.title}</td>
+	<th>제목 : ${dto.title}</th>
 </tr>
 <tr>
 	<td>
@@ -67,7 +67,6 @@ function listAttach(){
 </tr>
 <tr>
 	<td>
-		내용 :<br> 
 		${dto.content}
 	</td>
 </tr>

@@ -21,11 +21,13 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session = request.getSession();
-		String userid = (String) session.getAttribute("userid"); 
-		String message = "로그인을 해주세요";
+		String userid = (String) session.getAttribute("userid");
 		if( userid != null || session.getAttribute("admin_userid") != null ) {
 			int level = 1;
-			if(dao.getLevel(userid) >= 1) {
+			if(userid != null) {
+				level = dao.getLevel(userid);
+			}
+			if(level >= 1) {
 				return true;
 			}else {
 				response.sendRedirect(request.getContextPath() + "/levelRedirect");
@@ -43,7 +45,5 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 		super.postHandle(request, response, handler, modelAndView);
 	}
-
-	
 	
 }

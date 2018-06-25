@@ -60,7 +60,13 @@ public class FboardController {
 	@RequestMapping("insertOK")
 	public String insert(FboardDTO dto, HttpSession session) throws Exception{
 		String writer =(String) session.getAttribute("userid");
-		dto.setUserid(writer);
+		String admin =(String) session.getAttribute("admin_userid");
+		if(admin != null) {
+			dto.setUserid(admin);
+		}else {
+			dto.setUserid(writer);
+			
+		}
 		fboardService.insert(dto);
 		return "redirect:/fboard/list";
 	}
