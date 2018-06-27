@@ -62,7 +62,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<![CDATA[
  	select * from (
 			select rownum rnum, G.* from (
-				select * from f_board order by idx desc
+				select * from f_board where show='Y' order by idx desc
 			) G where rownum <= 4
 		) where rnum >= 1
 	]]>	
