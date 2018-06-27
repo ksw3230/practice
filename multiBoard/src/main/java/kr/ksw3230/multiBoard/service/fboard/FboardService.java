@@ -16,4 +16,5 @@ public interface FboardService {
 	public void update(FboardDTO dto) throws Exception;
 	public void deleteFile(String fullName);
 	public void delete(int idx);
+	public List<FboardDTO> select4List();
 }

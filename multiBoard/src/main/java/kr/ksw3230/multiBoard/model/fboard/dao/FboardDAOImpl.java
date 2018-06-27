@@ -75,5 +75,10 @@ public class FboardDAOImpl implements FboardDAO {
 	public void delete(int idx) {
 		sqlSession.update("fboard.delete", idx);
 	}
+
+	@Override
+	public List<FboardDTO> select4List() {
+		return sqlSession.selectList("fboard.select4List");
+	}
 	
 }

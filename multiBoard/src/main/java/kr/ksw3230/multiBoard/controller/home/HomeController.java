@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.ksw3230.multiBoard.model.board.dto.BoardDTO;
+import kr.ksw3230.multiBoard.model.fboard.dto.FboardDTO;
 import kr.ksw3230.multiBoard.model.imageBoard.dto.ImageBoardDTO;
 import kr.ksw3230.multiBoard.service.board.BoardService;
+import kr.ksw3230.multiBoard.service.fboard.FboardService;
 import kr.ksw3230.multiBoard.service.imageBoard.ImageBoardService;
 
 @Controller
@@ -27,18 +29,20 @@ public class HomeController {
 
 	@Inject
 	ImageBoardService imageBoardService;
-	
 	@Inject
 	BoardService boardService;
-	
+	@Inject
+	FboardService fboardService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpServletRequest request, Model model) {
 		String message = request.getParameter("message");
 		BoardDTO notice = boardService.selectLastNotice();
 		List<ImageBoardDTO> list = imageBoardService.select4List();
+		List<FboardDTO> flist = fboardService.select4List();
 		model.addAttribute("notice", notice);
 		model.addAttribute("list", list);
+		model.addAttribute("flist", flist);
 		model.addAttribute("rn", "\r\n");
 		model.addAttribute("message", message);
 		return "home";

@@ -18,4 +18,5 @@ public interface FboardDAO {
 	public void updateAttach(String fullName, int idx);
 	public void deleteFile(String fullName);
 	public void delete(int idx);
+	public List<FboardDTO> select4List();
 }

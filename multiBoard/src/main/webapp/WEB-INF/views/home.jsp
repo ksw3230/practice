@@ -71,7 +71,41 @@
  </c:otherwise>
  </c:choose>
  <tr>
-	
+</table>
+<br>
+<table align="center">
+	<tr>
+		<th class="title" colspan="5">
+			<a href="${path}/fboard/list">파일게시판</a>
+		</th>	
+	</tr>
+	<tr>
+	<th>글번호</th>
+	<th>작성자</th>
+	<th>제목</th>
+	<th>작성일</th>
+	<th>조회수</th>
+</tr>
+<c:choose>
+<c:when test="${flist != null && fn:length(flist) > 0 }">
+	<c:forEach items="${flist}" var="vo">
+		<tr>
+			<td>${vo.idx}</td>
+			<td>${vo.userid}</td>
+			<td>
+				${vo.title}
+			</td>
+			<td><fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+			<td>${vo.hit}</td>
+		</tr>
+	</c:forEach>
+</c:when>
+<c:otherwise>
+	<tr>
+		<td colspan="5">존재하지 않습니다.</td>
+	</tr>
+</c:otherwise>
+</c:choose>
 </table>
 
 </body>

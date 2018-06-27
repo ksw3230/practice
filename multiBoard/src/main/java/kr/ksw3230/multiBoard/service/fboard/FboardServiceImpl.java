@@ -74,5 +74,10 @@ public class FboardServiceImpl implements FboardService {
 	public void delete(int idx) {
 		fboardDao.delete(idx);
 	}
+
+	@Override
+	public List<FboardDTO> select4List() {
+		return fboardDao.select4List();
+	}
 	
 }

@@ -58,6 +58,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update f_board set show='N' where idx=#{idx}
 	</update>
 	
+	<select id="select4List" resultType="kr.ksw3230.multiBoard.model.fboard.dto.FboardDTO">
+ 	<![CDATA[
+ 	select * from (
+			select rownum rnum, G.* from (
+				select * from f_board order by idx desc
+			) G where rownum <= 4
+		) where rnum >= 1
+	]]>	
+  </select>
+	
 </mapper>
 
 
