@@ -38,43 +38,25 @@ public class ImageBoardController {
 	public String list(HttpServletRequest request, Model model) {
 		String userid = (String) request.getSession().getAttribute("userid");
 		String admin_userid = (String) request.getSession().getAttribute("admin_userid");
-		if(userid != null || admin_userid != null) {
-			int level = 1;
-			if(userid != null) {
-				level = imageboardService.getLevel(userid);
-			}
-			if(level >= 1) {
-				int currentPage = 1;
-				try {
-					currentPage = Integer.parseInt(request.getParameter("currentPage"));
-				} catch(Exception e) { }
-				
-				int pageSize = 12;
-				int totalCount = imageboardService.selectList();
-				Pager init = ctx.getBean("pager",Pager.class);
-				init.init(totalCount, currentPage, pageSize);
-				HashMap<String, Integer> hmap = new HashMap<>();
-				hmap.put("startNo", init.getStartNo());
-				hmap.put("endNo", init.getEndNo());
-				List<ImageBoardDTO> list = imageboardService.getList(hmap);
-				for(int i=0 ; i<list.size() ; i++) {
-					list.get(i).setReplyCount(imageCommentService.reqlyCount(list.get(i).getIdx()));
-				}
-				model.addAttribute("init", init);
-				model.addAttribute("list", list);
-				return "imageBoard/list";
-				
-			} else {
-				model.addAttribute("message", "가입인사를 해주세요!");
-				model.addAttribute("url", " ");
-				return "redirect";
-			}
-			
-		} else {
-			model.addAttribute("message", "로그인을 해주세요!");
-			model.addAttribute("url", "member/login");
-			return "redirect";
+		int currentPage = 1;
+		try {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		} catch(Exception e) { }
+		
+		int pageSize = 12;
+		int totalCount = imageboardService.selectList();
+		Pager init = ctx.getBean("pager",Pager.class);
+		init.init(totalCount, currentPage, pageSize);
+		HashMap<String, Integer> hmap = new HashMap<>();
+		hmap.put("startNo", init.getStartNo());
+		hmap.put("endNo", init.getEndNo());
+		List<ImageBoardDTO> list = imageboardService.getList(hmap);
+		for(int i=0 ; i<list.size() ; i++) {
+			list.get(i).setReplyCount(imageCommentService.reqlyCount(list.get(i).getIdx()));
 		}
+		model.addAttribute("init", init);
+		model.addAttribute("list", list);
+		return "imageBoard/list";
 	}
 	
 	@RequestMapping("insert")

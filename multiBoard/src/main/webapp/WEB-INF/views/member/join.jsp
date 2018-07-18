@@ -22,6 +22,37 @@ function chk() {
 		f.passwd.focus();
 		return false;
 	}
+	if(f.passwd.value.trim().length < 8) {
+		alert("비밀번호는 8글자 이상 입력해야 합니다.");
+		f.passwd.value ="";
+		f.passwd.focus();
+		return false;
+	}	
+	alphaCount = 0, numberCount = 0, etcCount = 0;
+	pw = f.passwd.value.trim();
+	for(i=0 ; i<pw.length ; i++) {
+		if(pw.charAt(i) >= 'a' && pw.charAt(i) <='z' || pw.charAt(i) >= 'A' && pw.charAt(i) <='Z') {
+			alphaCount ++;
+		} else if (pw.charAt(i) >= '0' && pw.charAt(i) <= '9') {
+			numberCount ++;
+		} else {
+			etcCount++;
+		}
+	}
+	if(alphaCount == 0 || numberCount == 0 || etcCount == 0 ) {
+		alert("비밀번호는 영문자, 숫자, 특수문자를 각각 1개 이상 포함해야 합니다.")
+		f.passwd.value = "";
+		f.repasswd.value = "";
+		f.passwd.focus();
+		return false;
+	}
+	if(f.passwd.value.trim() != f.repasswd.value.trim()) {
+		alert("비밀번호가 올바르지 않습니다.");
+		f.passwd.value = "";
+		f.repasswd.value = "";
+		f.passwd.focus();
+		return false;
+	}
 	if(!f.name.value || f.name.value.trim().length == 0) {
 		alert('이름을 입력하세요!');
 		f.name.value="";
@@ -35,11 +66,12 @@ function chk() {
 		return false;
 	}
 	if(!f.email.value || f.email.value.trim().length == 0) {
-		alert('비밀번호를 입력하세요!');
+		alert('이메일을 입력하세요!');
 		f.email.value="";
 		f.email.focus();
 		return false;
 	}
+	
 	return true;
 }
 </script>
@@ -53,13 +85,15 @@ function chk() {
     <label>아이디</label> 
     <input type="text" name="userid" placeholder="Your ID">
     <label>비밀번호</label>
-    <input type="password" name="passwd" placeholder="Your Password">
+    <input type="password" name="passwd" placeholder="8자이상 숫자 특수문자 포함">
+    <label>비밀번호 확인</label>
+    <input type="password" name="repasswd" placeholder="비밀번호 확인">
     <label>이름</label>
     <input type="text" name="name" placeholder="Your Name">
     <label>성별</label>
     <select name="gender">
-      <option value=""></option>
-      <option value="남자">남자</option>
+      
+      <option value="남자" selected="selected">남자</option>
       <option value="여자">여자</option>
     </select>
     <label>이메일</label>

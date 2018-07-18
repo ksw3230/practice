@@ -31,79 +31,61 @@ public class BoardController {
 
 	@RequestMapping("list")
 	public String list(HttpServletRequest request, Model model) {
-		String userid = (String) request.getSession().getAttribute("userid");
-		String admin_userid = (String) request.getSession().getAttribute("admin_userid");
-		if(userid != null || admin_userid != null) {
-			int level = 1;
-			if(userid != null) {
-				level = imageboardService.getLevel(userid);
-			}
-			if(level >= 1) {
-				String category = request.getParameter("category");
-				String item = request.getParameter("item");
-				if(item != null) {
-//			 		검색어에 전부 스페이스바를 입력했을 경우에 대비해서 아래의 코드를 추가한다.
-					item = item.trim().length() != 0 ? item : "";
-//					넘어온 카테고리와 검색어를 세션에 넣는다.		
-					request.getSession().setAttribute("category", category);
-					request.getSession().setAttribute("item", item);
-				} else {
-					category = (String) request.getSession().getAttribute("category");
-					item = (String) request.getSession().getAttribute("item");
-				}
-				int currentPage = 1;
-				try {
-					currentPage = Integer.parseInt(request.getParameter("currentPage"));
-				} catch(Exception e) { }
-				int pageSize = 10;
-				try{
-					pageSize = Integer.parseInt(request.getParameter("pageSize"));
-					request.getSession().setAttribute("pageSize", pageSize + "");
-				} catch (Exception e) {
-					String temp = (String) request.getSession().getAttribute("pageSize");
-					if(temp != null) {
-						pageSize = Integer.parseInt(temp);
-					}
-				}
-				int totalCount;
-				Pager init = ctx.getBean("pager",Pager.class);
-				List<BoardDTO> list = null;
-				if(item == null || item.trim().length() == 0) {
-					totalCount = boardService.selectCount();
-					init.init(totalCount, currentPage, pageSize);
-					HashMap<String, Integer> hmap = new HashMap<>();
-					hmap.put("startNo", init.getStartNo());
-					hmap.put("endNo", init.getEndNo());
-					list = boardService.selectList(hmap);
-				} else {
-					HashMap<String, String> hmap = new HashMap<String, String>();
-					hmap.put("item", item);
-					System.out.println(hmap.get("item"));
-					hmap.put("category", category);
-					totalCount = boardService.selectCountMulti(hmap);
-					init.init(totalCount, currentPage, pageSize);
-					BoardParam param = ctx.getBean("boardParam", BoardParam.class);
-					param.setStartNo(init.getStartNo());
-					param.setEndNo(init.getEndNo());
-					param.setItem(item);
-					param.setCategory(category);
-					list = boardService.selectListMulti(param);
-				}
-				model.addAttribute("init", init);
-				model.addAttribute("list", list);
-				List<BoardDTO> notice = boardService.selectNotice();
-				model.addAttribute("notice", notice);
-				return "board/list";
-			} else {
-				model.addAttribute("message", "가입인사를 해주세요!");
-				model.addAttribute("url", " ");
-				return "redirect";
-			}
+		String category = request.getParameter("category");
+		String item = request.getParameter("item");
+		if(item != null) {
+//	 		검색어에 전부 스페이스바를 입력했을 경우에 대비해서 아래의 코드를 추가한다.
+			item = item.trim().length() != 0 ? item : "";
+//			넘어온 카테고리와 검색어를 세션에 넣는다.		
+			request.getSession().setAttribute("category", category);
+			request.getSession().setAttribute("item", item);
 		} else {
-			model.addAttribute("message", "로그인을 해주세요!");
-			model.addAttribute("url", "member/login");
-			return "redirect";
+			category = (String) request.getSession().getAttribute("category");
+			item = (String) request.getSession().getAttribute("item");
 		}
+		int currentPage = 1;
+		try {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		} catch(Exception e) { }
+		int pageSize = 10;
+		try{
+			pageSize = Integer.parseInt(request.getParameter("pageSize"));
+			request.getSession().setAttribute("pageSize", pageSize + "");
+		} catch (Exception e) {
+			String temp = (String) request.getSession().getAttribute("pageSize");
+			if(temp != null) {
+				pageSize = Integer.parseInt(temp);
+			}
+		}
+		int totalCount;
+		Pager init = ctx.getBean("pager",Pager.class);
+		List<BoardDTO> list = null;
+		if(item == null || item.trim().length() == 0) {
+			totalCount = boardService.selectCount();
+			init.init(totalCount, currentPage, pageSize);
+			HashMap<String, Integer> hmap = new HashMap<>();
+			hmap.put("startNo", init.getStartNo());
+			hmap.put("endNo", init.getEndNo());
+			list = boardService.selectList(hmap);
+		} else {
+			HashMap<String, String> hmap = new HashMap<String, String>();
+			hmap.put("item", item);
+			System.out.println(hmap.get("item"));
+			hmap.put("category", category);
+			totalCount = boardService.selectCountMulti(hmap);
+			init.init(totalCount, currentPage, pageSize);
+			BoardParam param = ctx.getBean("boardParam", BoardParam.class);
+			param.setStartNo(init.getStartNo());
+			param.setEndNo(init.getEndNo());
+			param.setItem(item);
+			param.setCategory(category);
+			list = boardService.selectListMulti(param);
+		}
+		model.addAttribute("init", init);
+		model.addAttribute("list", list);
+		List<BoardDTO> notice = boardService.selectNotice();
+		model.addAttribute("notice", notice);
+		return "board/list";
 		
 	}
 	

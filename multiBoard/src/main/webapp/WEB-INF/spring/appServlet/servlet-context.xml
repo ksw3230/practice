@@ -45,6 +45,22 @@
 	class="kr.ksw3230.multiBoard.interceptor.LoginInterceptor"/>
 	<interceptors>
 		<interceptor>
+			<mapping path="/imageBoard/insert"/>
+			<mapping path="/imageBoard/insertOK"/>
+			<mapping path="/imageBoard/view"/>
+			<mapping path="/imageBoard/update"/>
+			<mapping path="/imageBoard/updateOK"/>
+			<mapping path="/imageBoard/delete"/>
+			<mapping path="/imageBoard/deleteOK"/>
+							
+			<mapping path="/board/insert"/>	
+			<mapping path="/board/insertOK"/>	
+			<mapping path="/board/increment"/>
+			<mapping path="/board/contentView"/>
+			<mapping path="/board/delete"/>
+			<mapping path="/board/update"/>
+			<mapping path="/board/reply"/>
+				
 			<mapping path="/fboard/insert"/>	
 			<mapping path="/fboard/insertOK"/>	
 			<mapping path="/fboard/increment"/>	
