@@ -34,9 +34,7 @@ public class BoardController {
 		String category = request.getParameter("category");
 		String item = request.getParameter("item");
 		if(item != null) {
-//	 		검색어에 전부 스페이스바를 입력했을 경우에 대비해서 아래의 코드를 추가한다.
 			item = item.trim().length() != 0 ? item : "";
-//			넘어온 카테고리와 검색어를 세션에 넣는다.		
 			request.getSession().setAttribute("category", category);
 			request.getSession().setAttribute("item", item);
 		} else {

@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -48,6 +49,7 @@ public class GreetController {
 	}
 	
 	@RequestMapping("insert")
+	@Transactional
 	public String insert(HttpServletRequest request, Model model) {
 		String userid = request.getParameter("userid");
 		String content = request.getParameter("content");
